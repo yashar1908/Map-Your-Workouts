@@ -66,6 +66,11 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const openButton = document.getElementById('open-dialog');
+const dialog = document.getElementById('calculator-dialog');
+const closeButton = document.getElementById('close-dialog');
+const calculatorForm = document.getElementById('calculator-form');
+const results = document.getElementById('results');
 
 class App {
   #map;
@@ -269,6 +274,8 @@ class App {
     form.insertAdjacentHTML('afterend', html);
   }
 
+
+
   _moveToPopup(e) {
     const workoutEl = e.target.closest('.workout');
 
@@ -310,3 +317,44 @@ class App {
 }
 
 const app = new App();
+
+
+// Event listener for opening the dialog
+openButton.addEventListener('click', () => {
+  dialog.style.display = 'block';
+});
+
+// Event listener for closing the dialog
+closeButton.addEventListener('click', () => {
+  dialog.style.display = 'none';
+});
+
+// Event listener for form submission
+calculatorForm.addEventListener('submit', (e) => {
+  e.preventDefault();
+
+  // Get the input values
+  const input1 = parseFloat(document.getElementById('input1').value);
+  const input2 = parseFloat(document.getElementById('input2').value);
+  const input3 = parseFloat(document.getElementById('input3').value);
+  const input4 = parseFloat(document.getElementById('input4').value);
+
+  // Perform calculations and display results
+  const resultsArray = [
+    input1 + input2,
+    input1 - input2,
+    input1 * input2,
+    input1 / input2,
+    input1 + input3,
+    input2 - input3,
+    input3 * input4,
+    input3 / input4,
+  ];
+
+  for (let i = 0; i < resultsArray.length; i++) {
+    document.getElementById(`result${i + 1}`).textContent = `Result ${i + 1}: ${resultsArray[i]}`;
+  }
+
+  // Show the results section
+  results.style.display = 'block';
+});
